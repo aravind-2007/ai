@@ -1,0 +1,7 @@
+% medical_diagnosis.pl
+symptom(fever, flu).
+symptom(cough, cold).
+symptom(headache, migraine).
+symptom(rash, allergy).
+
+diagnose(Symptoms, Disease) :- member(S, Symptoms), symptom(S, Disease).
