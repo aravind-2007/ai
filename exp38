@@ -1,0 +1,12 @@
+% 38_forward_chaining.pl
+% Facts
+parent(tom, bob).
+parent(bob, ann).
+parent(liz, ann).
+
+% Rules
+grandparent(X,Y) :- parent(X,Z), parent(Z,Y).
+
+% Forward chaining simulation
+% Query all grandparent facts
+% ?- grandparent(GP, C).
