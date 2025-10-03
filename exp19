@@ -1,0 +1,40 @@
+# 20_astar_grid.py
+import heapq
+
+def astar_grid(start, goal, grid):
+    rows, cols = len(grid), len(grid[0])
+    def h(a,b): return abs(a[0]-b[0])+abs(a[1]-b[1])
+    openh=[]
+    g={start:0}
+    f={start:h(start,goal)}
+    heapq.heappush(openh,(f[start], start))
+    parent={start:None}
+    while openh:
+        _, current = heapq.heappop(openh)
+        if current==goal:
+            path=[]
+            cur=current
+            while cur:
+                path.append(cur); cur=parent[cur]
+            return list(reversed(path))
+        for dr,dc in [(-1,0),(1,0),(0,-1),(0,1)]:
+            nr, nc = current[0]+dr, current[1]+dc
+            nb = (nr,nc)
+            if 0<=nr<rows and 0<=nc<cols and grid[nr][nc]==0:
+                tentative = g[current]+1
+                if tentative < g.get(nb, 1e9):
+                    parent[nb]=current
+                    g[nb]=tentative
+                    f[nb]=tentative + h(nb,goal)
+                    heapq.heappush(openh,(f[nb], nb))
+    return None
+
+if __name__ == "__main__":
+    # 0=free, 1=blocked
+    grid = [
+        [0,0,0,0],
+        [1,1,0,1],
+        [0,0,0,0],
+        [0,1,1,0]
+    ]
+    print(astar_grid((0,0),(3,3),grid))
