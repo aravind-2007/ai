@@ -1,0 +1,8 @@
+% bird.pl
+can_fly(eagle).
+can_fly(sparrow).
+cannot_fly(penguin).
+cannot_fly(ostrich).
+
+% Query example:
+% can_fly(eagle).   cannot_fly(penguin).
