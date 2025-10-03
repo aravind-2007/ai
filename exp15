@@ -1,0 +1,42 @@
+# 16_vacuum.py
+from collections import deque
+
+# Two locations: A and B, each dirty or clean. Robot can move or suck.
+# State: (pos, dirtA, dirtB) dirt: 1 dirty, 0 clean
+
+def vacuum_bfs(start):
+    goal=(None,0,0)  # any pos, both clean
+    q=deque([start])
+    parent={start:None}
+    while q:
+        s=q.popleft()
+        pos, a, b = s
+        if a==0 and b==0:
+            # reconstruct
+            path=[]
+            cur=s
+            while cur:
+                path.append(cur)
+                cur=parent[cur]
+            return list(reversed(path))
+        # actions
+        actions=[]
+        # suck
+        if (pos=='A' and a==1):
+            actions.append(('suck', ('A',0,b)))
+        if (pos=='B' and b==1):
+            actions.append(('suck', ('B',a,0)))
+        # move
+        actions.append(('move', ('A',a,b) if pos=='B' else ('B',a,b)))
+        for act, ns in actions:
+            if ns not in parent:
+                parent[ns]=s
+                q.append(ns)
+    return None
+
+if __name__ == "__main__":
+    pos = input("Start position (A or B): ").strip().upper()
+    a = int(input("Is A dirty? (1/0): "))
+    b = int(input("Is B dirty? (1/0): "))
+    path = vacuum_bfs((pos,a,b))
+    for p in path: print(p)
