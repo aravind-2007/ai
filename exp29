@@ -1,0 +1,9 @@
+% planets.pl
+planet('Mercury').
+planet('Venus').
+planet('Earth').
+planet('Mars').
+planet('Jupiter').
+planet('Saturn').
+planet('Uranus').
+planet('Neptune').
