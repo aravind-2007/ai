@@ -1,0 +1,30 @@
+# 12_8queen.py
+def solve_n_queens(n=8):
+    cols = set()
+    posdiag = set()
+    negdiag = set()
+    board = [-1]*n
+    solutions = []
+    def backtrack(r=0):
+        if r==n:
+            solutions.append(board.copy())
+            return
+        for c in range(n):
+            if c in cols or (r+c) in posdiag or (r-c) in negdiag:
+                continue
+            cols.add(c); posdiag.add(r+c); negdiag.add(r-c)
+            board[r]=c
+            backtrack(r+1)
+            cols.remove(c); posdiag.remove(r+c); negdiag.remove(r-c)
+    backtrack()
+    return solutions
+
+if __name__ == "__main__":
+    sols = solve_n_queens(8)
+    print("Number of solutions:", len(sols))
+    for s in sols[:3]:
+        for r in range(8):
+            line = ['.']*8
+            line[s[r]] = 'Q'
+            print(''.join(line))
+        print()
