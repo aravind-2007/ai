@@ -1,0 +1,44 @@
+# 15_missionaries.py
+from collections import deque
+
+def valid(state):
+    mL,cL,boat = state
+    mR = 3-mL; cR = 3-cL
+    # no side has more cannibals than missionaries (if missionaries >0)
+    if (mL>0 and cL>mL) or (mR>0 and cR>mR): return False
+    if mL<0 or cL<0 or mL>3 or cL>3: return False
+    return True
+
+def mc_bfs():
+    start = (3,3,1)  # left side (m,c,boat=1 left)
+    goal = (0,0,0)
+    q = deque([start])
+    parent={start:None}
+    while q:
+        s = q.popleft()
+        if s==goal:
+            path=[]
+            cur=s
+            while cur:
+                path.append(cur)
+                cur=parent[cur]
+            return list(reversed(path))
+        m,c,boat = s
+        for dm in range(3):
+            for dc in range(3):
+                if dm+dc==0 or dm+dc>2: continue
+                if boat==1:
+                    ns=(m-dm, c-dc, 0)
+                else:
+                    ns=(m+dm, c+dc,1)
+                if valid(ns) and ns not in parent:
+                    parent[ns]=s
+                    q.append(ns)
+    return None
+
+if __name__ == "__main__":
+    path = mc_bfs()
+    if path:
+        for p in path: print(p)
+    else:
+        print("No solution")
