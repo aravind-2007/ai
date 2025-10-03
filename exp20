@@ -1,0 +1,52 @@
+# 21_map_coloring.py
+def map_coloring(regions, adj, colors):
+    assignment = {}
+    def valid(region, color):
+        for neigh in adj.get(region,[]):
+            if assignment.get(neigh)==color:
+                return False
+        return True
+    def backtrack(i=0):
+        if i==len(regions):
+            return assignment.copy()
+        region = regions[i]
+        for c in colors:
+            if valid(region,c):
+                assignment[region]=c
+                res = backtrack(i+1)
+                if res: return res
+                del assignment[region]
+        return None
+    return backtrack()
+
+if __name__ == "__main__":
+    regions = ['A','B','C','D']
+    adj = {'A':['B','C'],'B':['A','C','D'],'C':['A','B','D'],'D':['B','C']}
+    colors = ['Red','Green','Blue']
+    print(map_coloring(regions,adj,colors))
+# 21_map_coloring.py
+def map_coloring(regions, adj, colors):
+    assignment = {}
+    def valid(region, color):
+        for neigh in adj.get(region,[]):
+            if assignment.get(neigh)==color:
+                return False
+        return True
+    def backtrack(i=0):
+        if i==len(regions):
+            return assignment.copy()
+        region = regions[i]
+        for c in colors:
+            if valid(region,c):
+                assignment[region]=c
+                res = backtrack(i+1)
+                if res: return res
+                del assignment[region]
+        return None
+    return backtrack()
+
+if __name__ == "__main__":
+    regions = ['A','B','C','D']
+    adj = {'A':['B','C'],'B':['A','C','D'],'C':['A','B','D'],'D':['B','C']}
+    colors = ['Red','Green','Blue']
+    print(map_coloring(regions,adj,colors))
