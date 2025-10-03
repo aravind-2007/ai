@@ -1,0 +1,12 @@
+% family.pl
+female(pam). female(liz). female(ann). female(pat).
+male(tom). male(bob). male(jim).
+
+mother(pam, bob). mother(liz, ann).
+father(tom, bob). father(tom, ann).
+
+grandfather(X, Y) :- father(X, Z), (father(Z,Y); mother(Z,Y)).
+grandmother(X, Y) :- mother(X, Z), (father(Z,Y); mother(Z,Y)).
+
+sister(X,Y) :- female(X), mother(M,X), mother(M,Y), X \= Y.
+brother(X,Y) :- male(X), mother(M,X), mother(M,Y), X \= Y.
