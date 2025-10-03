@@ -1,0 +1,27 @@
+# 19_tsp_bruteforce.py
+import itertools
+import math
+
+def tsp_bruteforce(dist_matrix):
+    n = len(dist_matrix)
+    nodes = list(range(n))
+    best = None
+    best_path = None
+    for perm in itertools.permutations(nodes[1:]):
+        path = [0] + list(perm) + [0]
+        cost = sum(dist_matrix[path[i]][path[i+1]] for i in range(len(path)-1))
+        if best is None or cost < best:
+            best = cost
+            best_path = path
+    return best, best_path
+
+if __name__ == "__main__":
+    # sample 4-node symmetric distance matrix
+    dist = [
+        [0,10,15,20],
+        [10,0,35,25],
+        [15,35,0,30],
+        [20,25,30,0]
+    ]
+    cost, path = tsp_bruteforce(dist)
+    print("Cost:", cost, "Path:", path)
