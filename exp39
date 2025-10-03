@@ -1,0 +1,14 @@
+% 39_backward_chaining.pl
+% Facts
+likes(alice, chocolate).
+likes(bob, ice_cream).
+likes(carol, chocolate).
+
+% Rules
+sweet_tooth(X) :- likes(X, chocolate).
+sweet_tooth(X) :- likes(X, ice_cream).
+
+% Queries
+% ?- sweet_tooth(alice).
+% ?- sweet_tooth(bob).
+% ?- sweet_tooth(Who).
