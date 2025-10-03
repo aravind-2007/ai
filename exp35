@@ -1,0 +1,7 @@
+% fruit_color.pl
+fruit(apple, red).
+fruit(banana, yellow).
+fruit(grapes, purple).
+fruit(orange, orange).
+
+% Query example: fruit(Fruit, red).
