@@ -1,0 +1,9 @@
+# 10_remove_punct.py
+import string
+
+def remove_punct(s):
+    return ''.join(ch for ch in s if ch not in string.punctuation)
+
+if __name__ == "__main__":
+    s = input("Enter a string: ")
+    print("Without punctuation:", remove_punct(s))
