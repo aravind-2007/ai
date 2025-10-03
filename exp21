@@ -1,0 +1,27 @@
+# 22_tictactoe.py
+def print_board(b):
+    for i in range(0,9,3):
+        print(' | '.join(b[i:i+3]))
+        if i<6: print('-'*9)
+
+def check_win(b, p):
+    wins = [(0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6)]
+    return any(all(b[i]==p for i in w) for w in wins)
+
+def full(b): return all(cell!=' ' for cell in b)
+
+if __name__ == "__main__":
+    board = [' ']*9
+    player = 'X'
+    while True:
+        print_board(board)
+        move = int(input(f"Player {player} move (0-8): "))
+        if board[move]==' ':
+            board[move]=player
+            if check_win(board,player):
+                print_board(board); print(player, "wins"); break
+            if full(board):
+                print_board(board); print("Draw"); break
+            player = 'O' if player=='X' else 'X'
+        else:
+            print("Invalid move")
