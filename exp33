@@ -1,0 +1,6 @@
+% diet.pl
+disease('Diabetes', 'Low Sugar Diet').
+disease('Hypertension', 'Low Salt Diet').
+disease('Obesity', 'Low Calorie Diet').
+
+% Query: disease('Diabetes', Diet).
