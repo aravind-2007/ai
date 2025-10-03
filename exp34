@@ -1,0 +1,9 @@
+% monkey_banana.pl
+% state(monkey_position, has_banana, box_position)
+initial(state(a, no, b)).
+goal(state(_, yes, _)).
+
+move(state(M, no, B), state(M, yes, B)) :- M = B. % pick banana
+move(state(M, H, B), state(N, H, B)) :- adjacent(M,N).
+
+adjacent(a,b). adjacent(b,a). adjacent(b,c). adjacent(c,b). % example
