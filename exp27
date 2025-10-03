@@ -1,0 +1,4 @@
+% db_name_dob.pl
+person('Alice', '01-01-1990').
+person('Bob', '12-05-1985').
+person('Carol', '23-07-1992').
