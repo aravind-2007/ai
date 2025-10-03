@@ -1,0 +1,47 @@
+# 13_water_jug.py
+from collections import deque
+
+def water_jug(a, b, target):
+    start = (0,0)
+    q = deque([start])
+    visited = {start: None}
+    ops = {}
+    while q:
+        x,y = q.popleft()
+        if x==target or y==target:
+            path=[]
+            cur=(x,y)
+            while cur:
+                path.append(cur)
+                cur = visited[cur]
+            return list(reversed(path))
+        states = []
+        # fill A
+        states.append((a,y))
+        # fill B
+        states.append((x,b))
+        # empty A
+        states.append((0,y))
+        # empty B
+        states.append((x,0))
+        # pour A->B
+        pour = min(x, b-y)
+        states.append((x-pour, y+pour))
+        # pour B->A
+        pour = min(y, a-x)
+        states.append((x+pour, y-pour))
+        for s in states:
+            if s not in visited:
+                visited[s] = (x,y)
+                q.append(s)
+    return None
+
+if __name__ == "__main__":
+    A = int(input("Capacity A: "))
+    B = int(input("Capacity B: "))
+    T = int(input("Target: "))
+    path = water_jug(A,B,T)
+    if path:
+        for p in path: print(p)
+    else:
+        print("No solution")
