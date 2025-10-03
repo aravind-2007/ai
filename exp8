@@ -1,0 +1,11 @@
+# 9_calendar.py
+import calendar
+
+def show_month(month, year):
+    # month and year are integers
+    print(calendar.month(year, month))
+
+if __name__ == "__main__":
+    m = int(input("Month (1-12): "))
+    y = int(input("Year (e.g. 2025): "))
+    show_month(m, y)
