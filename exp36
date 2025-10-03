@@ -1,0 +1,20 @@
+% best_first.pl
+% node(Name, Heuristic)
+node(a, 10).
+node(b, 8).
+node(c, 5).
+node(d, 7).
+
+edge(a,b). edge(a,c). edge(b,d). edge(c,d).
+
+best_first(Start, Goal, Path) :- bfs([Start], Goal, [], Path).
+
+bfs([Goal|_], Goal, Visited, Path) :- reverse([Goal|Visited], Path).
+bfs([H|T], Goal, Visited, Path) :-
+    findall(N, (edge(H,N), \+ member(N,Visited)), Ns),
+    sort_nodes(Ns, SortedNs),
+    append(SortedNs, T, Queue),
+    bfs(Queue, Goal, [H|Visited], Path).
+
+sort_nodes(Ns, Sorted) :- map_list_to_pairs(heuristic,Ns,Pairs), keysort(Pairs,SortedPairs), pairs_values(SortedPairs,Sorted).
+heuristic(Node, H) :- node(Node,H).
