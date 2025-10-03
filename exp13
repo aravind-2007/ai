@@ -1,0 +1,29 @@
+# 14_cryptarithmetic.py
+import itertools
+
+def solve(puzzle):
+    # puzzle example: "SEND + MORE = MONEY"
+    left, right = puzzle.split('=')
+    left_terms = [t.strip() for t in left.split('+')]
+    right = right.strip()
+    letters = set(''.join(left_terms)+right)
+    letters = sorted(letters)
+    if len(letters) > 10:
+        return None
+    first_letters = {t[0] for t in left_terms + [right]}
+    for perm in itertools.permutations('0123456789', len(letters)):
+        mapping = dict(zip(letters, perm))
+        if any(mapping[ch]=='0' for ch in first_letters):
+            continue
+        def val(s): return int(''.join(mapping[c] for c in s))
+        if sum(val(t) for t in left_terms) == val(right):
+            return mapping
+    return None
+
+if __name__ == "__main__":
+    p = input("Enter puzzle (e.g. SEND + MORE = MONEY): ")
+    sol = solve(p)
+    if sol:
+        print("Solution:", sol)
+    else:
+        print("No solution found")
