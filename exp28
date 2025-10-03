@@ -1,0 +1,5 @@
+% student_teacher_subject.pl
+teaches('Tom', 'Math101').
+teaches('Liz', 'CS102').
+student('Alice', 'Math101').
+student('Bob', 'CS102').
